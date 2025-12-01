@@ -33,7 +33,7 @@ jobs:
           cache: maven
 
       - name: Run tests and generate Cucumber report (allow failures so report still publishes)
-        run: mvn -B clean test -DtestFailureIgnore=true
+        run: mvn -B -Dmaven.test.failure.ignore=true clean test
 
       - name: Prepare report for GitHub Pages
         run: |
