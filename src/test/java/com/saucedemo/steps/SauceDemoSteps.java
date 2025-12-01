@@ -57,11 +57,13 @@ public class SauceDemoSteps {
 
     @When("I add two products to the cart")
     public void iAddTwoProductsToTheCart() {
-        inventoryPage.addFirstProductToCart();
-        // add second item if possible
-        driver.findElements(By.className("inventory_item")).stream().skip(1).findFirst().ifPresent(item -> {
-            item.findElement(By.tagName("button")).click();
-        });
+        // Add first two visible products to cart
+        var items = driver.findElements(By.className("inventory_item"));
+        if (items.size() >= 2) {
+            items.stream().limit(2).forEach(item ->
+                    item.findElement(By.tagName("button")).click()
+            );
+        }
     }
 
     @And("I open the cart")
