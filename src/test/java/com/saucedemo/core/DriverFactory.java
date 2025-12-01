@@ -13,7 +13,11 @@ public class DriverFactory {
         if (DRIVER.get() == null) {
             WebDriverManager.chromedriver().setup();
             ChromeOptions options = new ChromeOptions();
-            options.addArguments("--start-maximized");
+            // Run headless with safe defaults so it works on GitHub Actions Linux runners
+            options.addArguments("--headless=new");
+            options.addArguments("--no-sandbox");
+            options.addArguments("--disable-dev-shm-usage");
+            options.addArguments("--window-size=1920,1080");
             DRIVER.set(new ChromeDriver(options));
         }
     }
